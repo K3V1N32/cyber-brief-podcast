@@ -1,0 +1,15 @@
+[Unit]
+Description=Daily Cybersecurity Briefing Generator
+After=network.target
+
+[Service]
+Type=oneshot
+user=pi
+WorkingDirectory=/home/pi/.venv/cyber_brief
+ExecStart=/home/pi/.venv/bin/python3 /home/rath/.venv/cyber_brief/script.py
+EnvironmentFile=/etc/cyberbrief.env
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
