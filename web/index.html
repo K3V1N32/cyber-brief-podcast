@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cybersecurity Briefing</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #111;
+        color: #eee;
+        text-align: center;
+        padding: 40px;
+    }
+
+    h1 {
+        margin-bottom: 10px;
+    }
+
+    .player-container {
+        background: #1e1e1e;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 600px;
+        margin: 20px auto;
+        box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    }
+
+    select {
+        padding: 8px;
+        margin-top: 15px;
+        width: 100%;
+        background: #222;
+        color: #fff;
+        border: 1px solid #444;
+        border-radius: 5px;
+    }
+
+    audio {
+        width: 100%;
+        margin-top: 15px;
+    }
+</style>
+</head>
+<body>
+<h1>Rathserver</h1>
+<h1>Cybersecurity & Technology Briefing</h1>
+<p>Your daily automated security update.</p>
+
+<div class="player-container">
+    <h3 id="episode-title">Loading latest episode...</h3>
+    <audio id="audio-player" controls></audio>
+    <select id="episode-select"></select>
+</div>
+
+<script>
+async function loadPodcast() {
+    const response = await fetch("feed.xml");
+    const text = await response.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, "text/xml");
+
+    const items = xml.querySelectorAll("item");
+    const select = document.getElementById("episode-select");
+    const player = document.getElementById("audio-player");
+    const title = document.getElementById("episode-title");
+
+    if (items.length === 0) return;
+
+    // Load latest episode
+    const latest = items[0];
+    const latestTitle = latest.querySelector("title").textContent;
+    const latestUrl = latest.querySelector("enclosure").getAttribute("url");
+
+    title.textContent = latestTitle;
+    player.src = latestUrl;
+
+    // Populate dropdown
+    items.forEach((item, index) => {
+        const epTitle = item.querySelector("title").textContent;
+        const epUrl = item.querySelector("enclosure").getAttribute("url");
+
+        const option = document.createElement("option");
+        option.value = epUrl;
+        option.textContent = epTitle;
+
+        if (index === 0) option.selected = true;
+
+        select.appendChild(option);
+    });
+
+    // Change episode when selected
+    select.addEventListener("change", function() {
+        player.src = this.value;
+        title.textContent = this.options[this.selectedIndex].text;
+        player.play();
+    });
+}
+
+loadPodcast();
+</script>
+
+</body>
+</html>
