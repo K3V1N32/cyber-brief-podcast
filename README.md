@@ -4,16 +4,17 @@
 
 An automated cybersecurity news podcast built using Python, RSS feeds, and AI text-to-speech.
 
-## 🚀 Features
+##  Features
 
 - Pulls top cybersecurity headlines from RSS feeds
 - Uses AI TTS to generate a spoken news briefing
 - Exports daily MP3 podcast
 - Automatically generates valid RSS XML feed
+- Emails the headlines and podcast link
 - Hosted via Nginx on Raspberry Pi through Cloudflare Tunnel
-- Includes a web landing page with dynamic episode player
+- Includes a simple web landing page with dynamic episode player
 
-## 🧠 Tech Stack
+##  Tech Stack
 
 - Python
 - feedparser
@@ -24,21 +25,19 @@ An automated cybersecurity news podcast built using Python, RSS feeds, and AI te
 - Cloudflare Domain and Tunnel
 - HTML + JavaScript (RSS parsing)
 
-## 🖥️ Architecture
+##  Architecture
 
 RSS Feeds → Python Script → AI TTS → MP3 → RSS XML → Web Hosting → Podcast Clients
 
-## 📦 Installation
+##  Installation
 
 1. Clone repo
 2. Install requirements:
    pip install -r requirements.txt
 3. Configure RSS sources
-4. Run:
+4. Configure email credentials as secure environment variables
+5. Run:
    python generate_podcast.py
-
-## 🔄 Automation
-
-Uses systemd service to generate podcast daily.
+6. Use systemd service to generate podcast daily if using a Raspberry Pi.
 
 Built as a portfolio project demonstrating automation, AI integration, and full-stack deployment.
