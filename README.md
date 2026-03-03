@@ -1,4 +1,4 @@
-# 📰 Cyber Brief – Automated AI Podcast Generator
+# Cyber Brief - Automated AI Podcast Generator
 
 ![Landing Page](assets/screenshot.png)
 
